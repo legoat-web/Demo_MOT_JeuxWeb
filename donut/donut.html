@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini RPG</title>
+    <link rel="stylesheet" href="donut.css">
+</head>
+<body>
+    <h1>Donut clicker</h1>
+    <button id="donut" class="donut"><img src="/Img/donut.png" alt=""></button>
+    <h3><span id="number_text"></span> donuts</h3>
+    <h4>Multiplicateur de donuts : +<span id="donut_add_stat"></span>🍩</h4>
+    <section class="container_grid">
+        <div class="container_btn">
+            <h3>Clics +1</h3>
+            <p>Vous permet de passer à <span class="actual_clic_num">0</span> donuts par clics</p>
+            <button id="one_click">Payer <span id="price_x1">1</span>$</button>
+        </div>
+
+        <div class="container_btn">
+            <h3>Clics +3</h3>
+            <p>Vous permet de passer à <span class="actual_clic_num">0</span> donuts par clics</p>
+            <button id="three_click">Payer <span id="price_x3">1</span>$</button>
+        </div>
+
+        <div class="container_btn">
+            <h3>Clics +5</h3>
+            <p>Vous permet de passer à <span class="actual_clic_num">0</span> donuts par clics</p>
+            <button id="five_click">Payer <span id="price_x5">1</span>$</button>
+        </div>
+
+        <!-- <div class="container_btn">
+            <h3>Clics + <span id="max_click"></span></h3>
+            <p>Vous permet de passer à <span class="actual_clic_num">0</span> donuts par clics</p>
+            <button id="">Payer <span id="">0</span>$</button>
+        </div> -->
+
+        <div class="container_btn">
+            <h3>Rebirth 🔄</h3>
+            <p>Ce bouton permet de réinitialiser le nombre de clics à 0. Cela vous permet de gagner des gemmes pour de nouvelles capacité incroyable</p>
+            <button id="rebirth">Payer <span id="">0</span>$</button>
+        </div>
+    </section>
+
+    <div class="container_btn">
+        <h3>Clics x2</h3>
+        <p>Vous permet de passer à <span>0</span> donuts par clics</p>
+        <button id="double_click">Payer <span id="price_x2">0</span>$</button>
+    </div>
+
+    <div class="container_btn">
+        <h3>Auto Click</h3>
+        <p>Ce bouton vous fait gagner des donuts sans que vous ayez besoin à cliquer dessus</p>
+        <button id="auto_ckick">Payer <span id="">0</span>$</button>
+    </div>
+    <script src="donut.js"></script>
+</body>
+</html>
