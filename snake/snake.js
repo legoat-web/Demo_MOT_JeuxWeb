@@ -7,13 +7,12 @@ const step = 20;
 const gridSize = 20;
 let direction = "right";
 let score = 0;
-
+let bestScore = 0;
 
 const game = document.querySelector(".game-container");
 const snakeEl = document.querySelector(".snake");
 const foodEl = document.querySelector(".food");
 const scoreEl = document.querySelector("#score");
-
 
 let snake = [
     { x: 0, y: 0 }
@@ -67,6 +66,21 @@ function update() {
     if (direction === "up") newHead.y -= step;
     if (direction === "down") newHead.y += step;
 
+    
+for (let i = 0; i < snake.length; i++) {
+    if (snake[i].x === newHead.x && snake[i].y === newHead.y) {
+        alert("Game Over! Your score: " + score);
+
+        score = 0;
+        scoreEl.textContent = score;
+
+        snake = [{ x: 0, y: 0 }];
+        direction = "right";
+
+        renderSnake();
+        return;
+    }
+}
 
 
     snake.push(newHead);
@@ -84,6 +98,11 @@ function update() {
 
     if (newHead.x === food.x && newHead.y === food.y) {
         score++;
+        if (score > bestScore) {
+            bestScore = score;
+            document.querySelector("#best-score").textContent = bestScore;
+            
+        }
         scoreEl.textContent = score;
 
         food = spawnFood();
