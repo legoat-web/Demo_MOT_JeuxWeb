@@ -139,7 +139,7 @@ function draw() {
     bricks.forEach(b => {
         if (b.alive) {
             ctx.fillStyle = b.color;
-            
+
             ctx.fillRect(b.x, b.y, b.w, b.h);
         }
     });
@@ -157,5 +157,6 @@ function loop() {
     draw();
     requestAnimationFrame(loop);
 }
+
 
 loop();
