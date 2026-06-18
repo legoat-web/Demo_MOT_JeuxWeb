@@ -26,6 +26,7 @@ let brickH = 20;
 let padding = 10;
 let offsetX = 30;
 let offsetY = 40;
+dead = 0;
 
 for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -34,11 +35,11 @@ for (let r = 0; r < rows; r++) {
             y: offsetY + r * (brickH + padding),
             w: brickW,
             h: brickH,
-            alive: true
+            alive: true,
+            color: couleurAleatoire()
         });
     }
 }
-
 
 document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") paddle.dir = -1;
@@ -68,14 +69,21 @@ function update() {
     ball.x += ball.vx;
     ball.y += ball.vy;
 
-    if (ball.x < ball.r || ball.x > canvas.width - ball.r) ball.vx *= -1;
-    if (ball.y < ball.r) ball.vy *= -1;
+    if (ball.x < ball.r || ball.x > canvas.width - ball.r) { ball.vx *= -1; }
+    if (ball.y < ball.r) { ball.vy *= -1; }
 
     if (ball.y > canvas.height) {
+        alert("Défaite !");
         ball.x = 300;
         ball.y = 200;
+        paddle.x = 245;
         ball.vx = (Math.random() < 0.5 ? -1 : 1) * 3;
         ball.vy = -3;
+        dead = 0;
+        bricks.forEach(b => {
+            b.alive = true;
+        });
+
     }
 
     if (
@@ -93,6 +101,19 @@ function update() {
 
     bricks.forEach(b => {
         if (b.alive && collisionBrick(b, ball)) {
+            dead++
+            if (dead - (rows * cols) == 0) {
+                alert ("Victoire !")
+                ball.x = 300;
+                ball.y = 200;
+                paddle.x = 245;
+                ball.vx = (Math.random() < 0.5 ? -1 : 1) * 3;
+                ball.vy = -3;
+                bricks.forEach(b => {
+                    b.alive = true;
+                    dead = 0;
+                });
+            }
             b.alive = false;
             ball.vy *= -1;
         }
@@ -117,10 +138,18 @@ function draw() {
 
     bricks.forEach(b => {
         if (b.alive) {
-            ctx.fillStyle = "red";
+            ctx.fillStyle = b.color;
+            
             ctx.fillRect(b.x, b.y, b.w, b.h);
         }
     });
+}
+function couleurAleatoire() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+
+    return `rgb(${r}, ${g}, ${b})`;
 }
 
 function loop() {
