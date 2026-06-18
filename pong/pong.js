@@ -33,7 +33,7 @@ let ballvybefore = 2
 let particles = [];
 let score1 = 0
 let score2 = 0
-let lastHit = 0
+let lastHit = 3
 let gameOver = false
 let winner = ""
 let paddle1 = {
@@ -141,7 +141,7 @@ function update() {
     }
     if (ball.x + ball.r > canvas.width) {
 
-        if (lastHit === 2) {
+        if (lastHit === 2 || lastHit === 3) {
 
             ball.vx *= -1
             ball.x = canvas.width - ball.r
@@ -154,7 +154,7 @@ function update() {
 
     if (ball.x - ball.r < 0) {
 
-        if (lastHit === 1) {
+        if (lastHit === 1 || lastHit === 3) {
 
             ball.vx *= -1
             ball.x = ball.r
@@ -208,6 +208,7 @@ function resetBall() {
     ballvybefore = 2
     paddle1.sp = 3
     paddle2.sp = 3
+    lastHit = 3
 
 
     if (score1 >= 10) {
