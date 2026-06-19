@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 let paddle = {
     x: 245,
     y: 500,
-    w: 111,
+    w: 50,
     h: 15,
     sp: 6,
     dir: 0

@@ -155,7 +155,7 @@ function update() {
         } else {
             score1++
 
-            createParticlesbut(ball.x, ball.y, "yellow")
+            createParticlesbut(ball.x, ball.y, "orange")
             resetBall()
         }
     }
@@ -167,7 +167,7 @@ function update() {
             createParticles(ball.x, ball.y, "black")
         } else {
             score2++
-            createParticlesbut(ball.x, ball.y, "yellow")
+            createParticlesbut(ball.x, ball.y, "orange")
             resetBall()
         }
     }
