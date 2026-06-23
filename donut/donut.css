@@ -1,8 +1,14 @@
+
 .donut{
     background-color: rgba(255, 255, 255, 0);
     border: none;
     cursor: pointer;
+    width: 500px;
     transition: 0.3s ease;
+}
+
+.img_donut{
+    transform-origin: center;
 }
 .donut:hover{
     transform: scale(1.05);
@@ -10,12 +16,14 @@
 .donut:active{
     transform: scale(1.1);
 }
-
+.img_donut{
+    transition: 0.3s ease;
+}
 
 button{
     font-weight: 600;
     background-color: rgb(6, 238, 6);
-    border: solid 1px rgb(0, 126, 0);
+    border: solid 1px rgb(21, 255, 0);
     border-radius: 10px;
     width: 200px;
     height: 25px;
@@ -29,15 +37,65 @@ button:active{
     transform: scale(1.11);
 }
 
-.container_btn{
-    text-align: center;
-    width: 200px;
-    padding: 10px 30px;
-    margin: 10px;
-    border: solid 1px red;
-    border-radius: 15px;
-}
+
 
 .container_btn p{
     font-size: 13px;
 }
+
+button:disabled{
+    background-color: red;
+    border: 1px solid rgb(177, 21, 0);
+    color: white;
+}
+
+header{
+    text-align: center;
+}
+
+header h3{
+    margin-top: 40px;
+}
+
+.container_grid{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(3, 300px);
+    grid-template-columns: repeat(2, 45%);
+    justify-items: center;
+}
+
+.container_btn{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 130px 40px;
+    justify-items: center;
+    text-align: center;
+    width: 200px;
+    padding: 10px 30px;
+    margin: 25px;
+    background-color: rgb(255, 140, 9);
+    border: solid 1px rgb(255, 136, 0);
+    box-shadow: 7px 7px 10px rgb(0, 0, 0);
+    border-radius: 15px;
+}
+
+.title_2{
+    text-align: center;
+    margin-top: 10px;
+    display: grid;
+    grid-column: span 2;
+}
+.principal_grid{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    justify-items: center;
+    text-align: center;
+}
+.sidebar{
+    background: linear-gradient(brown, brown, rgb(42, 116, 165), rgb(49, 49, 250));
+    border-radius: 25px;
+    color: #ffe2e2;
+    width: 100%;
+}
+
