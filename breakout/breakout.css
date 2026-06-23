@@ -1,0 +1,14 @@
+canvas{
+    border: solid 1px;
+    display: flex;
+    margin: auto;
+    background-color: white;
+}
+body{
+    background-color: rgb(116, 116, 116);
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+h1{
+    text-align: center;
+}

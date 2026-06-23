@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="rpg.css">
+</head>
+<body>
+    <h1>RoguePG</h1>
+<div class="entite">
+<p>❤️ Vie du joueur : <span id="player">100</span>/<span id="playermax">100</span></p>
+
+<p>👹 Vie du monstre de niveau <span id="niv">1</span> : <span id="monster">80</span>/<span id="monstermax">80</span></p>
+<p>Niveau max battu : <span id=maxbeat>0</span></p>
+</div>
+<div class="util">
+<button id="attack">⚔️ Attaquer</button>
+<button id="heal">💊 Soigner</button></div>
+<div id="restart" class="absent">
+<br>
+<button id="rejouerbtn">recommencer</button></div>
+<div id="boutique" class="absent"><div class="btkbtn">
+    <p>📈 choisis une chose a améliorer : </p>
+    <button id="atkplus">💥 Dégats infligé</button>
+    <button id="vieplus">❤️ Vie max</button>
+    <button id="potplus">💊 Potions max</button>
+    <button id="healmax">❤️ Se soigner complettement</button></div>
+</div>
+<p>Potion(s) restantes : <span id="potion">3</span>/<span id="maxpotion">3</span></p>
+
+<strong id="playerdodge" class="absent">Tu as esquivé l'attaque !</strong>
+<strong id="monsterdodge" class="absent">Le montre a esquivé l'attaque !</strong>
+<strong id="crit" class="absent">💥 Coup Critique !</strong>
+<strong id="victoire" class="absent">Victoire !</strong>
+<strong id="defaite" class="absent">Défaite !</strong>
+<strong id="egalite" class="absent">Egalite !</strong>
+<h2>Journal de combat</h2>
+<div id="log"></div>
+    <script src="rpg.js"></script>
+</body>
+</html>

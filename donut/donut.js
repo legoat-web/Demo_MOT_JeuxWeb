@@ -1,3 +1,4 @@
+
 let count_click = 0;
 let count_gem = 0;
 let add_click = 1;
