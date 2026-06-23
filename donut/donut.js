@@ -1,41 +1,231 @@
 let count_click = 0;
+let count_gem = 0;
 let add_click = 1;
-
-let price_one = 1;
-let price_double = 1;
-let price_three = 1;
-let price_five = 1;
-
-let price_rebirth = 1;
-
-const one = 1;
-const double = 2;
-const three = 3;
-const five = 5;
+let mul_donuts = 1;
+let mul_gem = 1;
+let add_gem = 1;
+let rotation = 0;
 
 const donut = document.querySelector("#donut");
-const donut_add_stat = document.querySelector("#donut_add_stat")
+const img_donut = document.querySelector("#img_donut");
+const donut_add_stat = document.querySelector("#donut_add_stat");
+const gem_add_stat = document.querySelector("#gem_add_stat");
 const number_text = document.querySelector("#number_text");
 const double_click = document.querySelector("#double_click");
 
 const one_click = document.querySelector("#one_click");
 const three_click = document.querySelector("#three_click");
 const five_click = document.querySelector("#five_click");
+const ten_click = document.querySelector("#ten_click");
 const rebirth = document.querySelector("#rebirth");
+const double_donuts = document.querySelector("#double_donut");
+const double_gems = document.querySelector("#double_gem");
 
-const price_x2 = document.querySelector("#price_x2");
 
+const price_rebirth = document.querySelector("#price_rebirth")
 const price_one_btn = document.querySelector("#price_x1");
 const price_three_btn = document.querySelector("#price_x3");
 const price_five_btn = document.querySelector("#price_x5");
+const price_ten_btn = document.querySelector("#price_x10");
+const price_double_donuts = document.querySelector("#price_x2_donuts");
+const price_double_gems = document.querySelector("#price_x2_gems");
 
-const actual_clic_num = document.querySelector("#actual_clic_num");
-count_click = parseInt(localStorage.getItem("score")) || 0;
-add_click = parseInt(localStorage.getItem("add_click")) || 1;
+const upgradeOne = {
+    price: 30,
+    bonus: 1,
+    button: one_click,
+    show_button: price_one_btn
+}
+const upgradeThree = {
+    price: 100,
+    bonus: 3,
+    button: three_click,
+    show_button: price_three_btn
+}
+const upgradeFive = {
+    price: 300,
+    bonus: 5,
+    button: five_click,
+    show_button: price_five_btn
+}
+const upgradeTen = {
+    price: 600,
+    bonus: 10,
+    button: ten_click,
+    show_button: price_ten_btn
+}
 
-count_click = Number(count_click);
-add_click = Number(add_click);
-number_text.textContent = formatNumber(count_click);
+const upgradeRebirth = {
+    price: 1000,
+    bonus: 0,
+    button: rebirth,
+    show_button: price_rebirth
+}
+
+const upgradeDoubleDonuts = {
+    price: 1,
+    bonus: 2,
+    button: double_donuts,
+    show_button: price_double_donuts
+}
+
+const upgradeDoubleGems = {
+    price: 1,
+    bonus: 2,
+    button: double_gems,
+    show_button: price_double_gems
+}
+
+
+const upgrades = [
+    upgradeOne,
+    upgradeThree,
+    upgradeFive,
+    upgradeTen,
+    upgradeRebirth
+]
+
+const upgradeGems = [
+    upgradeDoubleDonuts,
+    upgradeDoubleGems
+]
+
+function buyUpgradeDonuts(upgrade){
+    if(count_click >= upgrade.price){
+        add_click += upgrade.bonus;
+        donut_add_stat.textContent = formatNumber(add_click * mul_donuts);
+        count_click -= upgrade.price;
+        upgrade.price *= 2;
+        upgrade.show_button.textContent = formatNumber(upgrade.price);
+        number_text.textContent = formatNumber(count_click);
+    }
+
+    if(upgrade.bonus === 0){
+        count_gem += add_gem * mul_gem;
+        gem_add_stat.textContent = count_gem;
+        upgrade.price *= 3;
+        upgrade.show_button.textContent = formatNumber(upgrade.price);
+        number_text.textContent = formatNumber(count_click);
+    }
+}
+
+function buyUpgradeGems(upgrade){
+
+    if(count_gem >= upgrade.price){
+        console.log("le bouton est achetable")
+        if(upgrade.button === double_gems){
+            mul_gem *= 2;
+        }
+        else if(upgrade.button === double_donuts){
+            mul_donuts *= 2;
+        }
+
+        count_gem -= upgrade.price;
+        upgrade.price *= 3;
+        upgrade.show_button.textContent = formatNumber(upgrade.price);
+        gem_add_stat.textContent = formatNumber(count_gem);
+        verifyPriceGems();
+    }
+
+
+}
+
+
+function verifyPrice(){
+
+    upgrades.forEach(upgrade => {
+        
+        if(count_click < upgrade.price){
+            upgrade.button.disabled = true;
+        }
+        else{
+            upgrade.button.disabled = false;
+        }
+
+    });
+}
+
+function verifyPriceGems(){
+    upgradeGems.forEach(upgrade => {
+        if(count_gem < upgrade.price){
+            upgrade.button.disabled = true;
+        }
+        else{
+            upgrade.button.disabled = false;
+        }
+    })
+}
+
+function loadGame(){
+    const data = localStorage.getItem("save");
+
+    if(!data) return;
+
+    let save;
+
+    try {
+        save = JSON.parse(data);
+    } catch (e) {
+        console.log("Save cassée → reset");
+        localStorage.removeItem("save");
+        return;
+    }
+
+    count_click = save.count_click || 0;
+    add_click = save.add_click || 1;
+    count_gem = save.count_gem || 0;
+    mul_gem = save.mul_gem || 1;
+    mul_donuts = save.mul_donuts || 1;
+
+    upgradeOne.price = save.upgradeOnePrice || 30 * mul_upgrade;
+    upgradeThree.price = save.upgradeThreePrice || 100 * mul_upgrade;
+    upgradeFive.price = save.upgradeFivePrice || 300 * mul_upgrade;
+    upgradeTen.price = save.upgradeTenPrice || 600 * mul_upgrade;
+    upgradeRebirth.price = save.upgradeRebirthPrice || 1000 * mul_upgrade;
+    upgradeDoubleDonuts.price = save.upgradeDoubleDonutsPrice || 1;
+    upgradeDoubleGems.price = save.upgradeDoubleGemsPrice || 1;
+}
+
+
+
+function saveGame(){
+    const save = {
+    count_click,
+    add_click,
+    upgradeOnePrice : upgradeOne.price,
+    upgradeThreePrice : upgradeThree.price,
+    upgradeFivePrice : upgradeFive.price,
+    upgradeTenPrice : upgradeTen.price,
+    upgradeRebirthPrice : upgradeRebirth.price,
+    upgradeDoubleDonutsPrice : upgradeDoubleDonuts.price,
+    upgradeDoubleGemsPrice : upgradeDoubleGems.price,
+    count_gem, 
+    mul_gem,
+    mul_donuts
+};
+
+    localStorage.setItem("save", JSON.stringify(save));
+}
+function updateSave(){
+    number_text.textContent = formatNumber(count_click);
+    donut_add_stat.textContent = formatNumber(add_click * mul_donuts);
+    upgradeOne.show_button.textContent = formatNumber(upgradeOne.price);
+    upgradeThree.show_button.textContent = formatNumber(upgradeThree.price);
+    upgradeFive.show_button.textContent = formatNumber(upgradeFive.price);
+    price_ten_btn.textContent = formatNumber(upgradeTen.price);
+    price_rebirth.textContent = formatNumber(upgradeRebirth.price);
+    price_double_donuts.textContent = formatNumber(upgradeDoubleDonuts.price);
+    price_double_gems.textContent = formatNumber(upgradeDoubleGems.price);
+    gem_add_stat.textContent = count_gem;
+    mul_gem = mul_gem;
+}
+
+loadGame();
+updateSave();
+verifyPrice();
+verifyPriceGems();
+saveGame();
+
 
 
 function formatNumber(n){
@@ -76,142 +266,76 @@ function formatNumber(n){
 
 
 donut.addEventListener("click", () => {
-    count_click += add_click;
-
-    number_text.textContent = formatNumber(count_click);
-
-    localStorage.setItem("score", count_click);
-    localStorage.setItem("add_click", add_click);
-    if(count_click > price_one){
-        one_click.disabled = false;
-    }
-
-    if(count_click > price_three){
-        three_click.disabled = false;
-    }
-    if(count_click > price_five){
-        five_click.disabled = false;
-    }
-    
-    if(count_click > price_double){
-        double_click.disabled = false;
-    }
-
-    price_one_btn.textContent = price_one;
+    count_click += add_click * mul_donuts;
+    verifyPrice();
+    verifyPriceGems();
+    updateSave();
+    saveGame();
+    rotation += 15;
+    img_donut.style.transform = `rotate(${rotation}deg)`;   
 })
 
 
 
 one_click.addEventListener("click", () => {
-    if(count_click >= price_one){
-        add_click += one;
-        count_click -= price_one;
-
-        if(price_one == 1){
-            price_one = 30;
-        }
-        else{
-            price_one *= Math.random() *1 + 2
-            price_one = Math.round(price_one/100) * 100
-        }
-
-        if(count_click < price_one){
-            one_click.disabled = true
-        }
-
-        number_text.textContent = formatNumber(count_click);
-        price_one_btn.textContent = formatNumber(price_one);
-        donut_add_stat.textContent = add_click;
-    }    
-})
-
-double_click.addEventListener("click", () => {
-    if(count_click >= price_double){
-
-        add_click *= double;
-        count_click -= price_double;
-
-        if(price_double == 1){
-            price_double = 30;
-        }
-        else{
-            price_double *= Math.random() *3 + 3
-            price_double = Math.round(price_double/100) * 100
-        }
-
-        if(count_click < price_double){
-            double_click.disabled = true
-        }
-
-        number_text.textContent = formatNumber(count_click);
-        price_x2.textContent = formatNumber(price_double);
-        donut_add_stat.textContent = add_click;
-}
+    buyUpgradeDonuts(upgradeOne);
+    updateSave();
+    saveGame();
+    verifyPrice();
 })
 
 
 three_click.addEventListener("click", () =>{
-    if(count_click >= price_three){
-
-        add_click += three;
-        count_click -= price_three;
-
-        if(price_three == 1){
-            price_three = 100;
-        }
-        else{
-            price_three *= Math.random() *2 + 1
-            price_three = Math.round(price_three/100) * 100
-        }
-
-        if(count_click < price_three){
-            three_click.disabled = true;
-            console.log("le bouton est désactivé")
-        }
-
-    number_text.textContent = formatNumber(count_click);
-    price_three_btn.textContent = formatNumber(price_three);
-    donut_add_stat.textContent = add_click;
-}})
-
-five_click.addEventListener("click", () => {
-    if(count_click >= price_five){
-        add_click += five;
-        count_click -= price_five;
-
-        if(price_five == 1){
-            price_five = 100;
-        }
-        else{
-            price_five *= Math.random() *2 + 1
-            price_five = Math.round(price_five/100) * 100
-        }
-
-        if(count_click < price_five){
-            five_click.disabled = true;
-            console.log("le bouton est désactivé")
-        }
-
-    number_text.textContent = formatNumber(count_click);
-    price_five_btn.textContent = formatNumber(price_five);
-    donut_add_stat.textContent = add_click;
-}
+    buyUpgradeDonuts(upgradeThree);
+    updateSave();
+    saveGame();
+    verifyPrice();
 })
 
+five_click.addEventListener("click", () => {
+    buyUpgradeDonuts(upgradeFive);
+    updateSave();
+    saveGame();
+    verifyPrice();
+})
+ten_click.addEventListener("click", () => {
+    buyUpgradeDonuts(upgradeTen);
+    updateSave();
+    saveGame();
+    verifyPrice();
+})
 
 rebirth.addEventListener("click", () =>{
+
     count_click = 0;
     add_click = 1;
-    number_text.textContent = 0;
-    
-    price_double = 1;
-    price_one = 1;
-    price_three = 1;
-    price_five = 1;
+    upgradeOne.price = 30 * mul_upgrade;
+    upgradeThree.price = 100 * mul_upgrade;
+    upgradeFive.price = 300 * mul_upgrade;
+    upgradeTen.price = 600 * mul_upgrade;
 
-    
-    price_one_btn.textContent = price_one;
-    price_three_btn.textContent = price_three;
-    price_five_btn = price_five;
-    donut_add_stat.textContent = 0;
+    price_one_btn.textContent = upgradeOne.price;
+    price_three_btn.textContent = upgradeThree.price;
+    price_five_btn.textContent = upgradeFive.price;
+    price_ten_btn.textContent = upgradeTen.price;
+    number_text.textContent = 0;
+    donut_add_stat.textContent = formatNumber(add_click);
+    gem_add_stat.textContent = formatNumber(count_gem);
+
+    verifyPrice();
+    verifyPriceGems();
+    updateSave();
+    saveGame();
+    buyUpgradeDonuts(upgradeRebirth);
+})
+
+double_donuts.addEventListener("click", () =>{
+    buyUpgradeGems(upgradeDoubleDonuts);
+    verifyPriceGems();
+})
+double_gems.addEventListener("click", () =>{
+    buyUpgradeGems(upgradeDoubleGems);
+    verifyPriceGems();
+    updateSave();
+    saveGame();
 })
