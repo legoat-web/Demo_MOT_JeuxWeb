@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini RPG</title>
+    <link rel="stylesheet" href="donut.css">
+</head>
+<body>
+<section class="principal_grid sidebar">
+    <article class="donut_background">
+        <h1>Donut clicker</h1>
+        <button id="donut" class="donut"><img src="/Img/donut.png" alt="image de donut" id="img_donut" class="img_donut"></button>
+        <h3 style="margin-top: 40px;"><span id="number_text"></span> donuts</h3>
+        <h4>Multiplicateur de donuts : +<span id="donut_add_stat"></span>🍩</h4>
+        <h4>Nombre de gemmes : <span id="gem_add_stat">0</span>💎</h4>
+    </article>
+    <article class="sidebar">
+        <h2 class="title_2">🍩 Magasin de Donuts 🍩</h2>
+        <article class="container_grid">
+            <div class="container_btn">
+                <h3>Donuts +1</h3>
+                <p>Ajoute +1 au multiplicateur de donuts <br><br> 🍩</p>
+                <button id="one_click">Payer <span id="price_x1">1</span> 🍩</button>
+            </div>
+
+            <div class="container_btn">
+                <h3>Donuts +3</h3>
+                <p>Ajoute +3 au multiplicateur de donuts <br><br>🍩🍩🍩</p>
+                <button id="three_click">Payer <span id="price_x3">1</span> 🍩</button>
+            </div>
+
+            <div class="container_btn">
+                <h3>Donuts +5</h3>
+                <p>Ajoute +5 au multiplicateur de donuts <br><br> 🍩🍩🍩🍩🍩</p>
+                <button id="five_click">Payer <span id="price_x5">1</span> 🍩</button>
+            </div>
+            <div class="container_btn">
+                <h3>Donuts +10</h3>
+                <p>Ajoute +10 au multiplicateur de donuts <br><br> 🍩🍩🍩🍩🍩🍩🍩🍩🍩🍩</p>
+                <button id="ten_click">Payer <span id="price_x10">1</span> 🍩</button>
+            </div>
+
+            <div class="container_btn">
+                <h3>Rebirth 🔄</h3>
+                <p>Ce bouton permet de réinitialiser le nombre de clics à 0. Cela vous permet de gagner des gemmes pour de nouvelles capacité incroyable</p>
+                <button id="rebirth">Payer <span id="price_rebirth">0</span> 🍩</button>
+            </div>
+        </article>
+
+        <h2 class="title_2">💎 Magasin de Gemmes 💎</h2>
+        <article class="container_grid">
+            <div class="container_btn">
+                <h3>Donuts x2</h3>
+                <p>Double définitvement votre nombre de clics</p>
+                <button id="double_donut">Payer <span id="price_x2_donuts">1</span> 💎</button>
+            </div>
+
+            <div class="container_btn">
+                <h3>Gemmes x2</h3>
+                <p>Double définitvement votre nombre de gemmes à chaque rebirth</p>
+                <button id="double_gem">Payer <span id="price_x2_gems">1</span> 💎</button>
+            </div>
+
+        </article>
+</article>
+
+</section>
+    <script src="donut.js"></script>
+</body>
+</html>>
